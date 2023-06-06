@@ -10,9 +10,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./public/"));
 
+const htmlRoutes = require("./routes/html-routes")
+const apiRoutes = require("./routes/api-routes")
 
-app.use("./routes/html-routes");
-app.use("./routes/api-routes");
+app.use(htmlRoutes);
+app.use(apiRoutes);
 
 // Starts server
 app.listen(PORT, () => {

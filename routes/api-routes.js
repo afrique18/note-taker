@@ -1,14 +1,15 @@
 const path= require("path");
 const fs = require("fs")
 
-const uniqId = require("uniqId");
+const { v4: uuidvd} = require('uuid');
 
-
+// Routing and API Get request
 module.exports = (app) => {
     app.get("/api/notes", (req, res) => {
         res.sendFile(path.join(__dirname, "../db/db.json"));  
     });
 
+    // Api post request
     app.post("/api/notes", (req, res) => {
         let db = fs.readFileSync("db/db.jsoon")
         db = JSON.parse(db);
@@ -18,7 +19,7 @@ module.exports = (app) => {
             title: req.body.title,
             text: req.body.text,
 
-            id: uniqId(),
+            itemId: uuidv4(),
         };
 
         db.push(userNote);
@@ -26,6 +27,7 @@ module.exports = (app) => {
         res.json(db);
     });
 
+    // API delete request
     app.delete('/api/notes/:id', (req, res) => {
         let db = JSON.parse(fs.readFileSyn('db/db.json'))
 
